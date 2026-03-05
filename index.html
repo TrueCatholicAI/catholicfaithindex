@@ -34,6 +34,42 @@
   .nav-links .nav-cta { padding: 0.4em 1.1em; border: 1.5px solid var(--ink); color: var(--ink) !important; font-weight: 500; transition: all 0.2s; }
   .nav-links .nav-cta:hover { background: var(--ink); color: var(--paper) !important; }
 
+  .burger {
+    display: none; flex-direction: column; justify-content: center; gap: 4px;
+    background: none; border: none; cursor: pointer; padding: 0; z-index: 201;
+    width: 28px; height: 28px; align-items: center;
+  }
+  .burger span {
+    display: block; width: 18px; height: 2px; background: var(--text-mid); border-radius: 1px;
+    transition: all 0.3s; transform-origin: center;
+  }
+  .burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile-actions { display: none; align-items: center; gap: 8px; }
+  .nav-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 260px;
+    background: var(--paper); border-left: 2px solid var(--ink);
+    z-index: 200; transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column; padding: 72px 28px 32px; gap: 4px;
+  }
+  .nav-drawer.open { transform: translateX(0); }
+  .nav-drawer a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none;
+    padding: 14px 0; border-bottom: 1px solid var(--border-strong); transition: color 0.2s;
+  }
+  .nav-drawer a:hover { color: var(--accent); }
+  .nav-drawer .drawer-cta {
+    margin-top: 20px; border-bottom: none; padding: 14px; text-align: center;
+    border: 1.5px solid var(--ink); color: var(--ink) !important; font-weight: 500;
+  }
+  .nav-overlay {
+    display: none; position: fixed; inset: 0; z-index: 199; background: rgba(0,0,0,0.4);
+  }
+  .nav-overlay.open { display: block; }
   .btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85em 2em; text-decoration: none; cursor: pointer; transition: all 0.25s; display: inline-block; }
   .btn-dark { background: var(--ink); color: var(--paper); border: 1.5px solid var(--ink); }
   .btn-dark:hover { background: var(--ink-soft); }
@@ -138,7 +174,7 @@
   .footer-links a:hover { color: var(--accent); }
 
   @media (max-width: 900px) {
-    nav { padding: 0.8rem 1.5rem; } .nav-links a:not(.nav-cta) { display: none; }
+    nav { padding: 0.8rem 1.5rem; } .nav-links { display: none; } .nav-mobile-actions { display: flex; } .nav-mobile-actions .burger { display: flex; }
     .hero { padding: 4rem 1.5rem 3rem; } .hero-meta { gap: 1.5rem; flex-wrap: wrap; }
     .section, .section-wide { padding: 3rem 1.5rem; }
     .cat-grid, .method-grid { grid-template-columns: repeat(2, 1fr); }
@@ -165,7 +201,21 @@
     <a href="#faq">FAQ</a>
     <a href="https://truecatholicai.org" target="_blank" class="nav-cta">TrueCatholic AI →</a>
   </div>
+  <div class="nav-mobile-actions">
+    <button class="burger" id="burgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <a href="#">Home</a>
+  <a href="#results">Results</a>
+  <a href="#methodology">Methodology</a>
+  <a href="#faq">FAQ</a>
+  <a href="https://truecatholicai.org/app.html" class="drawer-cta">Try TrueCatholic AI</a>
+</div>
 
 <section class="hero">
   <div class="hero-edition">February 2026 · Volume 1</div>
@@ -349,9 +399,19 @@
   <div class="footer-links">
     <a href="https://truecatholicai.org" target="_blank">TrueCatholic AI</a>
     <a href="https://x.com/TrueCatholicAI" target="_blank">@TrueCatholicAI</a>
-    <a href="mailto:truecatholicai@proton.me">Contact</a>
-  </div>
-</footer>
-
+    <a href="/cdn-cgi/l/email-protection#e195939484828095898e8d88828088a191938e958e8fcf8c84">
+<script>
+  const burger = document.getElementById('burgerBtn');
+  const drawer = document.getElementById('navDrawer');
+  const overlay = document.getElementById('navOverlay');
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    drawer.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggleMenu(!drawer.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+</script>
 </body>
-</html>
