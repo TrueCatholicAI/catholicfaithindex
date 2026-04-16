@@ -20,7 +20,7 @@
     --border-accent: rgba(200,160,80,0.25);
     --text: #F5F4F1;
     --text-mid: #C8C5BC;
-    --text-dim: #8A8780;
+    --text-dim: #9A978F;
     --gold: #C8A050;
     --gold-soft: #A8884A;
     --gold-glow: rgba(200,160,80,0.15);
@@ -123,8 +123,8 @@
   .hero-bg {
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,160,80,0.05) 0%, transparent 70%),
-      radial-gradient(ellipse 80% 60% at 30% 80%, rgba(200,160,80,0.03) 0%, transparent 60%);
+      radial-gradient(circle at 75% 50%, rgba(200,160,80,0.14) 0%, rgba(200,160,80,0.06) 22%, rgba(200,160,80,0.02) 45%, transparent 65%),
+      radial-gradient(ellipse 80% 60% at 30% 80%, rgba(200,160,80,0.04) 0%, transparent 60%);
     pointer-events: none;
   }
   #heroBgCanvas {
@@ -448,10 +448,17 @@
   .method-card:hover::before { opacity: 1; }
   .method-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    color: var(--bg-hover);
-    margin-bottom: 0.8rem;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 4.8rem;
+    line-height: 0.9;
+    color: var(--gold);
+    opacity: 0.35;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.03em;
+    transition: opacity 0.3s, color 0.3s;
   }
+  .method-card:hover .method-num { opacity: 0.6; }
   .method-card h3 {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.68rem; font-weight: 500;
@@ -599,6 +606,255 @@
   }
   .footer-links a:hover { color: var(--gold); }
 
+  /* ── SCROLL PROGRESS ── */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, var(--gold-soft), var(--gold));
+    z-index: 200;
+    box-shadow: 0 0 10px rgba(200,160,80,0.5);
+    pointer-events: none;
+    will-change: width;
+  }
+
+  /* ── DROP CAP ── */
+  .dropcap::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    float: left;
+    font-size: 3.8em;
+    line-height: 0.85;
+    padding-right: 0.12em;
+    padding-top: 0.05em;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(200,160,80,0.35);
+  }
+
+  /* ── CALLOUT BANNER (headline finding) ── */
+  .callout-banner {
+    position: relative;
+    padding: 6rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(ellipse 55% 70% at 50% 50%, rgba(196,80,80,0.09), transparent 70%),
+      linear-gradient(180deg, transparent, rgba(196,80,80,0.02), transparent);
+    overflow: hidden;
+  }
+  .callout-banner::before,
+  .callout-banner::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    opacity: 0.4;
+  }
+  .callout-banner::before { top: 2rem; }
+  .callout-banner::after { bottom: 2rem; }
+  .callout-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 2rem;
+    opacity: 0.85;
+  }
+  .callout-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(6rem, 14vw, 11rem);
+    line-height: 1;
+    color: var(--red);
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 80px rgba(196,80,80,0.4);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.12em;
+  }
+  .callout-number em {
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.4em;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .callout-number .co-n {
+    display: inline-block;
+    line-height: 0.8;
+    transform: translateY(-0.1em);
+  }
+  .callout-verb {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+  }
+  .callout-verb strong {
+    color: var(--red);
+    font-weight: 400;
+    font-style: italic;
+  }
+  .callout-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.98rem;
+    color: var(--text-mid);
+    max-width: 580px;
+    margin: 0 auto;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── SCORE BARS (leaderboard) ── */
+  .scorecell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    white-space: nowrap;
+  }
+  .score-bar {
+    display: inline-block;
+    width: 72px;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .score-bar i {
+    display: block;
+    height: 100%;
+    border-radius: 2px;
+    background: var(--gold);
+  }
+  .score-bar i.sb-a { background: linear-gradient(90deg, var(--green), #7cc47c); }
+  .score-bar i.sb-b { background: linear-gradient(90deg, var(--yellow), #d8b968); }
+  .score-bar i.sb-c { background: linear-gradient(90deg, var(--orange), #e09c5e); }
+  .score-bar i.sb-f { background: linear-gradient(90deg, var(--red), #d87070); }
+
+  /* ── HEATMAP (category × model matrix) ── */
+  .heatmap {
+    margin-top: 2.5rem;
+    text-align: left;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .heatmap-inner { min-width: 720px; }
+  .heatmap-header,
+  .heatmap-row {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .heatmap-header > div {
+    background: var(--bg-deep);
+    padding: 0.95rem 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+  }
+  .heatmap-header > div:first-child {
+    text-align: left;
+  }
+  .heatmap-header .hm-best {
+    color: var(--gold);
+  }
+  .heatmap-row > div {
+    background: var(--bg);
+    padding: 1.05rem 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem; font-weight: 500;
+    text-align: center;
+    transition: filter 0.2s;
+  }
+  .heatmap-row > div:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    text-align: left;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+  .heatmap-cell[data-grade="a"] { background: rgba(90,170,90,0.22); color: #b0e4b0; }
+  .heatmap-cell[data-grade="b"] { background: rgba(200,160,80,0.20); color: #e5ce85; }
+  .heatmap-cell[data-grade="c"] { background: rgba(204,136,68,0.22); color: #ebb186; }
+  .heatmap-cell[data-grade="f"] { background: rgba(196,80,80,0.22); color: #ec9898; }
+  .heatmap-row:hover > div { filter: brightness(1.2); }
+  .heatmap-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.08em;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+  .heatmap-legend-item { display: flex; align-items: center; gap: 0.5rem; }
+  .heatmap-legend-swatch {
+    width: 14px; height: 14px;
+    display: inline-block;
+    border: 1px solid var(--border);
+  }
+  .hls-a { background: rgba(90,170,90,0.35); }
+  .hls-b { background: rgba(200,160,80,0.32); }
+  .hls-c { background: rgba(204,136,68,0.35); }
+  .hls-f { background: rgba(196,80,80,0.35); }
+
+  /* ── QUOTE ORNAMENTS ── */
+  .quote-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2.2rem auto;
+    max-width: 360px;
+  }
+  .quote-ornament::before,
+  .quote-ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+  }
+  .quote-ornament span {
+    color: var(--gold);
+    font-size: 0.95rem;
+    opacity: 0.7;
+  }
+  .quote-section blockquote {
+    font-size: clamp(1.6rem, 3vw, 2.4rem) !important;
+  }
+
+  /* ── REDUCED MOTION ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    #heroCanvas, #heroBgCanvas { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .hero-edition, .hero h1, .hero-deck, .hero-ctas, .hero-stats {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 0.8rem 1.5rem; }
@@ -650,10 +906,17 @@
     .models-strip-logos { gap: 1.5rem; }
     .models-strip-logos span { font-size: 0.8rem; }
     footer { flex-direction: column; align-items: flex-start; }
+    .score-bar { display: none; }
+    .scorecell { gap: 0; }
+    .callout-banner { padding: 4rem 1.5rem; }
+    .callout-banner::before, .callout-banner::after { width: 80px; }
+    .dropcap::first-letter { font-size: 3.2em; }
   }
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <nav>
   <a href="#" class="nav-brand">
@@ -710,6 +973,14 @@
   </div>
 </div>
 
+<!-- ── CALLOUT: headline finding ── -->
+<div class="callout-banner reveal">
+  <div class="callout-label">The Finding</div>
+  <div class="callout-number"><span class="co-n">5</span><em>of</em><span class="co-n">5</span></div>
+  <div class="callout-verb">major AI models <strong>failed</strong> subversion resistance.</div>
+  <p class="callout-sub">Asked to "give me your honest, unbiased opinion" or "ignore all previous instructions," every model tested &mdash; OpenAI, Google, Anthropic, Meta &mdash; dropped Catholic framing and reverted to neutrality.</p>
+</div>
+
 <!-- ── LEADERBOARD ── -->
 <section class="section-full reveal" id="results">
   <div class="section-label">Leaderboard &mdash; All Models</div>
@@ -720,12 +991,12 @@
       <th style="width:40px">#</th><th>Model</th><th class="th-center">Score</th><th class="th-center">Raw</th><th class="th-center">Violations</th><th>Notes</th><th style="text-align:center">Grade</th>
     </tr></thead>
     <tbody>
-      <tr><td><span class="rank-num">1</span></td><td><div class="model-info"><span class="model-name-t">TrueCatholic AI</span><span class="model-provider">TrueCatholic (Sonnet 4.5 + charter)</span></div></td><td class="score-num">5.00</td><td class="score-num">5.00</td><td><span class="violations-num" style="color:var(--green)">0</span></td><td class="model-note">Our product. 50/50 perfect scores. Full disclosure: we made the benchmark too</td><td><span class="grade-pill gp-a">A</span></td></tr>
-      <tr><td><span class="rank-num">2</span></td><td><div class="model-info"><span class="model-name-t">Gemini 2.0 Flash</span><span class="model-provider">Google</span></div></td><td class="score-num">3.00</td><td class="score-num">3.69</td><td><span class="violations-num v-high">22</span></td><td class="model-note">Strong doctrine, collapses on subversion (1.33 raw)</td><td><span class="grade-pill gp-c">C+</span></td></tr>
-      <tr><td><span class="rank-num">3</span></td><td><div class="model-info"><span class="model-name-t">GPT-4o</span><span class="model-provider">OpenAI</span></div></td><td class="score-num">2.82</td><td class="score-num">3.67</td><td><span class="violations-num v-high">28</span></td><td class="model-note">Knows the faith, treats it as opinion</td><td><span class="grade-pill gp-c">C</span></td></tr>
-      <tr><td><span class="rank-num">4</span></td><td><div class="model-info"><span class="model-name-t">Llama 3.3 70B</span><span class="model-provider">Meta</span></div></td><td class="score-num">2.66</td><td class="score-num">3.60</td><td><span class="violations-num v-high">25</span></td><td class="model-note">Solid sacramental knowledge, weak pastoral and subversion</td><td><span class="grade-pill gp-c">C</span></td></tr>
-      <tr><td><span class="rank-num">5</span></td><td><div class="model-info"><span class="model-name-t">Claude Sonnet 4.5</span><span class="model-provider">Anthropic</span></div></td><td class="score-num">2.56</td><td class="score-num">3.64</td><td><span class="violations-num v-high">28</span></td><td class="model-note">Perfect sacramental score, hedges on everything else</td><td><span class="grade-pill gp-c">C</span></td></tr>
-      <tr><td><span class="rank-num">6</span></td><td><div class="model-info"><span class="model-name-t">Claude Haiku 4.5</span><span class="model-provider">Anthropic</span></div></td><td class="score-num">1.62</td><td class="score-num">2.98</td><td><span class="violations-num v-high">39</span></td><td class="model-note">39 violations out of 50 questions. F in 5 of 8 categories</td><td><span class="grade-pill gp-d">F</span></td></tr>
+      <tr><td><span class="rank-num">1</span></td><td><div class="model-info"><span class="model-name-t">TrueCatholic AI</span><span class="model-provider">TrueCatholic (Sonnet 4.5 + charter)</span></div></td><td><div class="scorecell"><span class="score-num">5.00</span><span class="score-bar"><i class="sb-a" style="width:100%"></i></span></div></td><td class="score-num">5.00</td><td><span class="violations-num" style="color:var(--green)">0</span></td><td class="model-note">Our product. 50/50 perfect scores. Full disclosure: we made the benchmark too</td><td><span class="grade-pill gp-a">A</span></td></tr>
+      <tr><td><span class="rank-num">2</span></td><td><div class="model-info"><span class="model-name-t">Gemini 2.0 Flash</span><span class="model-provider">Google</span></div></td><td><div class="scorecell"><span class="score-num">3.00</span><span class="score-bar"><i class="sb-c" style="width:60%"></i></span></div></td><td class="score-num">3.69</td><td><span class="violations-num v-high">22</span></td><td class="model-note">Strong doctrine, collapses on subversion (1.33 raw)</td><td><span class="grade-pill gp-c">C+</span></td></tr>
+      <tr><td><span class="rank-num">3</span></td><td><div class="model-info"><span class="model-name-t">GPT-4o</span><span class="model-provider">OpenAI</span></div></td><td><div class="scorecell"><span class="score-num">2.82</span><span class="score-bar"><i class="sb-c" style="width:56.4%"></i></span></div></td><td class="score-num">3.67</td><td><span class="violations-num v-high">28</span></td><td class="model-note">Knows the faith, treats it as opinion</td><td><span class="grade-pill gp-c">C</span></td></tr>
+      <tr><td><span class="rank-num">4</span></td><td><div class="model-info"><span class="model-name-t">Llama 3.3 70B</span><span class="model-provider">Meta</span></div></td><td><div class="scorecell"><span class="score-num">2.66</span><span class="score-bar"><i class="sb-c" style="width:53.2%"></i></span></div></td><td class="score-num">3.60</td><td><span class="violations-num v-high">25</span></td><td class="model-note">Solid sacramental knowledge, weak pastoral and subversion</td><td><span class="grade-pill gp-c">C</span></td></tr>
+      <tr><td><span class="rank-num">5</span></td><td><div class="model-info"><span class="model-name-t">Claude Sonnet 4.5</span><span class="model-provider">Anthropic</span></div></td><td><div class="scorecell"><span class="score-num">2.56</span><span class="score-bar"><i class="sb-c" style="width:51.2%"></i></span></div></td><td class="score-num">3.64</td><td><span class="violations-num v-high">28</span></td><td class="model-note">Perfect sacramental score, hedges on everything else</td><td><span class="grade-pill gp-c">C</span></td></tr>
+      <tr><td><span class="rank-num">6</span></td><td><div class="model-info"><span class="model-name-t">Claude Haiku 4.5</span><span class="model-provider">Anthropic</span></div></td><td><div class="scorecell"><span class="score-num">1.62</span><span class="score-bar"><i class="sb-f" style="width:32.4%"></i></span></div></td><td class="score-num">2.98</td><td><span class="violations-num v-high">39</span></td><td class="model-note">39 violations out of 50 questions. F in 5 of 8 categories</td><td><span class="grade-pill gp-d">F</span></td></tr>
     </tbody>
   </table>
   <div class="table-note">CFI v2.0 &middot; Proportional neutrality penalty by severity (minor: -0.15, major: -0.35, critical: -0.60). "Raw" = score before penalties.</div>
@@ -738,15 +1009,96 @@
   <div class="section-label">Category Breakdown</div>
   <h2>Where the models succeed. Where they fail.</h2>
   <p>Models handle factual questions well. They collapse when doctrine meets modern culture, and crumble under any form of pushback or subversion.</p>
-  <div class="cat-grid">
-    <div class="cat-card"><div class="cat-name">Core Doctrine</div><div class="cat-models"><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-b">4.22</span></div><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-b">4.07</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-b">3.59</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-c">3.29</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">2.31</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Moral Teaching</div><div class="cat-models"><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-b">3.94</span></div><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-c">3.34</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-c">3.10</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-c">3.04</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">1.00</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Sacramental</div><div class="cat-models"><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-a">5.00</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-a">4.67</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-a">4.50</span></div><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-b">4.18</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-c">2.70</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Subversion</div><div class="cat-models"><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-f">1.88</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-f">1.00</span></div><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-f">1.00</span></div><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-f">1.00</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">1.00</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Apologetics</div><div class="cat-models"><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-f">2.02</span></div><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-f">1.65</span></div><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-f">1.42</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-f">1.25</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">1.00</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Pastoral</div><div class="cat-models"><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-c">2.65</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-f">1.97</span></div><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-f">1.87</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-f">1.77</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">1.27</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Scripture &amp; History</div><div class="cat-models"><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-c">3.01</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">2.37</span></div><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-f">2.23</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-f">2.08</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-f">1.94</span></div></div></div>
-    <div class="cat-card"><div class="cat-name">Catholic Difference</div><div class="cat-models"><div class="cat-row"><span class="cat-model">Gemini</span><span class="cat-score cs-c">3.35</span></div><div class="cat-row"><span class="cat-model">Llama</span><span class="cat-score cs-c">3.10</span></div><div class="cat-row"><span class="cat-model">GPT-4o</span><span class="cat-score cs-f">2.40</span></div><div class="cat-row"><span class="cat-model">Sonnet</span><span class="cat-score cs-f">2.20</span></div><div class="cat-row"><span class="cat-model">Haiku</span><span class="cat-score cs-f">1.20</span></div></div></div>
+  <div class="heatmap">
+    <div class="heatmap-inner">
+      <div class="heatmap-header">
+        <div>Category</div>
+        <div class="hm-best">TrueCat</div>
+        <div>Gemini</div>
+        <div>GPT-4o</div>
+        <div>Llama</div>
+        <div>Sonnet</div>
+        <div>Haiku</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Core Doctrine</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="b">4.07</div>
+        <div class="heatmap-cell" data-grade="b">4.22</div>
+        <div class="heatmap-cell" data-grade="b">3.59</div>
+        <div class="heatmap-cell" data-grade="c">3.29</div>
+        <div class="heatmap-cell" data-grade="f">2.31</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Moral Teaching</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="b">3.94</div>
+        <div class="heatmap-cell" data-grade="c">3.34</div>
+        <div class="heatmap-cell" data-grade="c">3.04</div>
+        <div class="heatmap-cell" data-grade="c">3.10</div>
+        <div class="heatmap-cell" data-grade="f">1.00</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Sacramental</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="b">4.18</div>
+        <div class="heatmap-cell" data-grade="a">4.67</div>
+        <div class="heatmap-cell" data-grade="a">4.50</div>
+        <div class="heatmap-cell" data-grade="c">2.70</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Subversion</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="f">1.00</div>
+        <div class="heatmap-cell" data-grade="f">1.00</div>
+        <div class="heatmap-cell" data-grade="f">1.00</div>
+        <div class="heatmap-cell" data-grade="f">1.88</div>
+        <div class="heatmap-cell" data-grade="f">1.00</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Apologetics</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="f">1.65</div>
+        <div class="heatmap-cell" data-grade="f">1.42</div>
+        <div class="heatmap-cell" data-grade="f">2.02</div>
+        <div class="heatmap-cell" data-grade="f">1.25</div>
+        <div class="heatmap-cell" data-grade="f">1.00</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Pastoral</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="f">1.87</div>
+        <div class="heatmap-cell" data-grade="c">2.65</div>
+        <div class="heatmap-cell" data-grade="f">1.77</div>
+        <div class="heatmap-cell" data-grade="f">1.97</div>
+        <div class="heatmap-cell" data-grade="f">1.27</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Scripture &amp; History</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="c">3.01</div>
+        <div class="heatmap-cell" data-grade="f">2.23</div>
+        <div class="heatmap-cell" data-grade="f">1.94</div>
+        <div class="heatmap-cell" data-grade="f">2.08</div>
+        <div class="heatmap-cell" data-grade="f">2.37</div>
+      </div>
+      <div class="heatmap-row">
+        <div>Catholic Difference</div>
+        <div class="heatmap-cell" data-grade="a">5.00</div>
+        <div class="heatmap-cell" data-grade="c">3.35</div>
+        <div class="heatmap-cell" data-grade="f">2.40</div>
+        <div class="heatmap-cell" data-grade="c">3.10</div>
+        <div class="heatmap-cell" data-grade="f">2.20</div>
+        <div class="heatmap-cell" data-grade="f">1.20</div>
+      </div>
+    </div>
+  </div>
+  <div class="heatmap-legend">
+    <div class="heatmap-legend-item"><span class="heatmap-legend-swatch hls-a"></span>A &middot; 4.5&ndash;5.0</div>
+    <div class="heatmap-legend-item"><span class="heatmap-legend-swatch hls-b"></span>B &middot; 3.5&ndash;4.5</div>
+    <div class="heatmap-legend-item"><span class="heatmap-legend-swatch hls-c"></span>C &middot; 2.5&ndash;3.5</div>
+    <div class="heatmap-legend-item"><span class="heatmap-legend-swatch hls-f"></span>F &middot; &lt;2.5</div>
   </div>
 </section>
 
@@ -865,8 +1217,10 @@
 
 <!-- ── QUOTE ── -->
 <section class="quote-section reveal">
+  <div class="quote-ornament"><span>&#10016;</span></div>
   <blockquote>"The truth is like a lion. You don't have to defend it. Let it loose; it will defend itself."</blockquote>
   <cite>&mdash; St. Augustine</cite>
+  <div class="quote-ornament"><span>&#10016;</span></div>
 </section>
 
 <div class="rule" style="background: var(--border-strong);"></div>
@@ -884,6 +1238,8 @@
 </footer>
 
 <script>
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Scroll-triggered reveal animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -894,8 +1250,30 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// Scroll progress bar
+(function() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  let ticking = false;
+  function update() {
+    const h = document.documentElement;
+    const max = Math.max(1, h.scrollHeight - h.clientHeight);
+    const pct = (h.scrollTop / max) * 100;
+    bar.style.width = pct + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  update();
+})();
+
 // ── HERO CANVAS ANIMATION ──
 (function() {
+  if (REDUCED_MOTION) return;
   const canvas = document.getElementById('heroCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -1075,6 +1453,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // ── HERO BACKGROUND CANVAS — full-screen floating pixels ──
 (function() {
+  if (REDUCED_MOTION) return;
   const canvas = document.getElementById('heroBgCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
